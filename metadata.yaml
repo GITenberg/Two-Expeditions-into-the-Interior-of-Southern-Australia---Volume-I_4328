@@ -1,0 +1,26 @@
+_repo: Two-Expeditions-into-the-Interior-of-Southern-Australia---Volume-I_4328
+_version: 0.0.1
+creator:
+  author:
+    agent_name: Sturt, Charles
+    birthdate: 1795
+    deathdate: 1869
+    gutenberg_agent_id: '1448'
+    url: http://www.gutenberg.org/2009/agents/1448
+    wikipedia: http://en.wikipedia.org/wiki/Charles_Sturt
+description: ''
+gutenberg_issued: '2003-08-01'
+gutenberg_type: Text
+identifiers:
+  gutenberg: '4328'
+language: en
+publisher: Project Gutenberg
+rights: Public domain in the USA.
+rights_url: http://creativecommons.org/about/pdm
+subjects:
+- !lcsh 'Sturt, Charles, 1795-1869'
+- !lcsh 'New South Wales -- Discovery and exploration'
+- !lcc 'DU'
+- GITenberg
+title: Two Expeditions into the Interior of Southern Australia — Volume I
+url: http://www.gutenberg.org/ebooks/4328
