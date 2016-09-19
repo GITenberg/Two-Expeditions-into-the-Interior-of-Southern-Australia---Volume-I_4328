@@ -1,0 +1,61 @@
+sudo: required
+dist: trusty
+language: ruby
+
+before_install:
+before_install:
+- gem install asciidoctor -v 1.5.2
+- gem install tilt
+- sudo pip install git+https://github.com/gitenberg-dev/gitberg
+- sudo pip install pillow
+- sudo pip install cssutils
+- sudo pip install docutils
+- sudo pip install roman
+- sudo pip install git+https://github.com/gitenberg-dev/pg-epubmaker
+script:
+- VERSION=`ruby -e "require 'yaml'; meta = YAML.load_file('metadata.yaml'); puts meta['_version'];"`
+- git clone https://github.com/gitenberg-dev/asciidoctor-htmlbook.git
+- sudo pip install -r asciidoctor-htmlbook/gitberg-machine/requirements.txt
+
+- /usr/bin/python -c "from gitenberg import travis; travis.build_epub()"
+- ebook-convert book.epub book.mobi
+- xvfb-run ebook-convert book.epub book.pdf
+branches:
+  only:
+  - master
+notifications:
+  webhooks:
+    urls:
+      - https://unglue.it/api/travisci/webhook
+    on_success: always
+    on_failure: never
+    on_start: never
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: mvNb32yMmq9BzK0DlJjDxb8dJFuEqkzZlJlaqdQD2cf4C3khh2UtT4d4WVLxrwJCMw5DsoatIdpo1kV6cdo/lqNAS7OSTS0xBAPm9+nri3yPxc0BgVidnTfLj7XpzsgZrt3qpuP5aPsXYw/rG/7Jmh6UkXN2T44P+8KbyjV+fhe+3gW4UbgaEVeujEalp4mkdIQOJq42t95bpDqXi6XmEsju4WxZ74ddelCx0BJiX5C7mHMVoj+zCPizRmMWn+AIHPjw3E06bbXor/rc4ZURttc7W10pW7lAw378JhyxvCmO0V56t28c+P7tGOafiyquiUUSll40Qlgf1JGh0b+CyA09ldS+c49KjGp7YQt8d96igOiMhA/nciV1nzQIUsfr3mKOMMUH56DgQ7j87fzYN/JWsf0mWwJ/Bm7I175GS3WnC5HyiLBQVyUQ9hCnjz4vJjmKAZlp9UI4ijlFyxfIKZWQRfrFrJvQHFYOpO4tyKbVqfTvSra+nDyPTEOalVKJAu4/UREuwN73eTHlfQQWIoj3mlu612xdVfIiauIu7UEBRyNG1d1b/rH5/fpP9uX6N8qSEhfy0KD1LaOq5ESYS3PsaV+BiQzGYt2au1BGMMzdqKroMneW1CVYBTXmuJgalU8SrOQ3FxTS+RN6mKrxIovI9mZixXa4TTKhONniUp0=
+  file:
+    - book.epub
+    - book.mobi
+    - book.pdf
+  "on":
+    repo: GITenberg/Two-Expeditions-into-the-Interior-of-Southern-Australia---Volume-I_4328
+addons:
+  apt:
+    packages:
+    - xsltproc
+    - xvfb
+    - calibre
+    - python-pip
+    - git
+    - python-dev
+    - libjpeg-dev
+    - libpng-dev
+    - libfreetype6
+    - libfreetype6-dev
+    - zlib1g-dev
+    - python-lxml
+    - libxml2-dev
+    - libxslt1-dev
+    - tidy
